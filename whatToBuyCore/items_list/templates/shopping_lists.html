@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Last Used</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for shopping_list in shopping_lists%}
+          <tr>
+            <th scope="row">{{shopping_list.id}}</th>
+            <td><a href="{{shopping_list.id}}">{{shopping_list.title}}</a></td>
+            <td>2023-02-12</td>
+            <td>
+                <button class="btn btn-primary">Update</button>
+                <button class="btn btn-danger ml-2">Delete</button>
+
+            </td>
+          </tr>
+        {% endfor %}
+      </table>      
+{% endblock content %}
+    
