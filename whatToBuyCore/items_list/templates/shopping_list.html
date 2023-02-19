@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<h3>{{header}}</h3>
+<form method="POST" action="#">
+  {% csrf_token %}
+  <div class ="row">
+    <div class ="col-8">
     <ol class="list-group list-group-numbered">
         {% for ingredient in shopping_list%}
         <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -8,21 +13,29 @@
             {{ingredient.description}}
           </div>
           {% if ingredient.is_completed %}
-            <input type="checkbox" checked/>
+            <input class="my-auto" type="checkbox" checked value="{{ingredient.pk}}" name="checkbox"/>
           {% else %}
-          <input type="checkbox"/>
+          <input class="my-auto" type="checkbox" value="{{ingredient.pk}}" name="checkbox"/>
           {% endif %}
-
-          <button class="btn btn-primary ms-2">
-            <a style="text-decoration: none; color:inherit;" href="{% url 'item-update' pk=ingredient.pk %}">Update</a>
-          </button>
-          <button class="btn btn-danger ms-2">
-            <a style="text-decoration: none; color:inherit;" href="{% url 'item-delete' pk=ingredient.pk %}">Delete</a>
-          </button>
+          
+          <button type= "submit"class ="btn btn-danger" ms-2 name="delete" value="{{ingredient.pk}}">Delete</button>
         </li>
         {% endfor %}
       </ol>
-      <button class="btn btn-primary mt-2">
-        <a style="text-decoration: none; color:inherit;" href="{% url 'item-add' %}">Add</a>
-      </button>
+      <button type="submit" class="btn btn-primary mt-2"name="update_checked" value="update_checked" >Save</button>
+    </div>
+    <div class= "col-4">
+        <div class="mb-2">
+          <label class="form-label">Name of the item</label>
+          <input type="text" class="form-control" name="item_name">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Description of the item</label>
+          <textarea type="text" class="form-control" style ="height: 100px" name="item_description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" name="item_add" value="item_add">Create Item</button> 
+           
+    </div>
+  </div>
+</form>
 {% endblock content %}
