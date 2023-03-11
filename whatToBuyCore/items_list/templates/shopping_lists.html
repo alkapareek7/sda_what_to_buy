@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<form method="POST" action="#">
+  {% csrf_token %}
+<div class ="row">
+  <div class ="col-8">
     <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
-            <th scope="col">Last Used</th>
+            <th scope="col">Created at</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -15,13 +18,42 @@
           <tr>
             <th scope="row">{{shopping_list.id}}</th>
             <td><a href="{{shopping_list.id}}">{{shopping_list.title}}</a></td>
-            <td>2023-02-12</td>
+            <td>{{shopping_list.created_at}}</td>
             <td>
-                <button class="btn btn-primary">Update</button>
-                <button class="btn btn-danger ml-2">Delete</button>
-
+                <button class="btn btn-danger ml-2" type-"submit" name="delete" value={{shopping_list.id}}>Delete</button>
             </td>
           </tr>
         {% endfor %}
       </table>
+    </div>
+      <div class= "col-4">
+        <div class="mb-2">
+          <label class="form-label">Reciepe</label>
+          <input type="text" class="form-control" name="reciepe">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name = "checkbox">
+            <label class="form-check-label" for="flexCheckDefault">
+              Would you like to make your list public
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" name="reciepe_add" value="reciepe_add">Create Item</button> 
+
+      <div class= "col-8">
+        <div class="mb-2">
+          <label class="form-label">Desserts</label>
+          <input type="text" class="form-control" name="Desserts">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name = "checkbox">
+            <label class="form-check-label" for="flexCheckDefault">
+              Would you like to make it sugar free
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" name="Desserts_add" value="Desserts_add">Create Item</button>
+           
+      </div>
+    </div>
+  </form>
+    
 {% endblock content %}
